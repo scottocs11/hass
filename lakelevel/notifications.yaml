@@ -20,5 +20,8 @@ actions:
   - action: notify.notify
     metadata: {}
     data:
-      message: "{{ states.sensor.chickamauga_level_difference.state }}ft until full pool"
+      message: >-
+        Chickamauga Lake is at {{states.sensor.chickamauga_lake_level.state}}ft,
+        which is {{states.sensor.chickamauga_level_difference.state}}ft below
+        full pool.
 mode: single
