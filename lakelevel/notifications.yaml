@@ -1,0 +1,24 @@
+alias: Notify daily of Chickamauga Lake Level
+description: ""
+triggers:
+  - trigger: time
+    at: "08:00:00"
+    weekday:
+      - sun
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+conditions:
+  - condition: numeric_state
+    entity_id: sensor.chickamauga_level_difference
+    below: -0.5
+    above: -3
+actions:
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: "{{ states.sensor.chickamauga_level_difference.state }}ft until full pool"
+mode: single
