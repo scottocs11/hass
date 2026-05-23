@@ -15,4 +15,4 @@ Instructions:
 4. Download lakelevel.py and copy it to your <HASSconfig>/pyscript folder.
 5. Reload Pyscript
 6. The four sensors should now have the new values.
-7. Add a new automation using the YAML from [notifications.yaml](https://github.com/scottocs11/hass/lakelevel/blob/main/notifications.yaml).
+7. Add a new automation using the YAML from [notifications.yaml](https://github.com/scottocs11/hass/blob/main/lakelevel/notifications.yaml).
