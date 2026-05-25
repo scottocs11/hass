@@ -15,7 +15,9 @@ conditions:
   - condition: numeric_state
     entity_id: sensor.chickamauga_level_difference
     below: -0.5
-    above: -3
+    above: -4
+  - condition: template
+    value_template: "{{ now().month in [4,5,6] }}"
 actions:
   - action: notify.notify
     metadata: {}
