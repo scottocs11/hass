@@ -2,17 +2,17 @@ import requests
 import pandas as pd
 from io import StringIO
 url = "https://www.lakelevels.info/"
-# html = requests.get(url)
-# lakename = "Chickamauga  (TN)"
 html = await hass.async_add_executor_job(requests.get, url)
 df_list = pd.read_html(StringIO(html.text))
 df = df_list[4]
 
 def update_lake_info():
-    html = await hass.async_add_executor_job(requests.get, url)
+    html = await hass.async_add_executor_job(requests.get, url) #Pyscript only
+    #When testing in python:  html = requests.get(url)
     df_list = pd.read_html(StringIO(html.text))
     df = df_list[4]
-    lakename = state.get("input_select.lake")
+    lakename = state.get("input_select.lake") #Pyscript only
+    #When testing in python: lakename = "Chickamauga  (TN)"
     fdf = df[df['Lake Name'].str.contains(lakename)].reset_index()
     levelCurrent = fdf.at[0,'Current Level']
     levelCurrent = levelCurrent.item()
@@ -48,8 +48,9 @@ def update_lake_info():
     'icon': 'mdi:update'
     })
 
-def quick_update_lake_info():
-    lakename = state.get("input_select.lake")
+def quick_load_lake_info():
+    lakename = state.get("input_select.lake") #Pyscript only
+    #When testing in python: lakename = "Chickamauga  (TN)"
     fdf = df[df['Lake Name'].str.contains(lakename)].reset_index()
     levelCurrent = fdf.at[0,'Current Level']
     levelCurrent = levelCurrent.item()
@@ -90,9 +91,9 @@ def update_sensors_time():
     update_lake_info()
 
 @time_trigger("once(now)","startup")
-def update_sensors_time():
-    quick_update_lake_info()
+def quick_load_sensors_time():
+    quick_load_lake_info()
 
 @state_trigger("input_select.lake")
-def update_sensors_lakechange():
-    quick_update_lake_info()
+def quick_load_lakechange():
+    quick_load_lake_info()

@@ -27,5 +27,5 @@ actions:
         {{states.input_select.lake.state}} is at
         {{states.sensor.lake_current_level.state}}ft, which is
         {{states.sensor.lake_level_difference.state}}ft below full pool
-        ({{states.sensor.lake_full_pool.state}}).
+        ({{states.sensor.lake_full_pool.state}}ft).
 mode: single
