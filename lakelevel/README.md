@@ -17,8 +17,9 @@ Instructions:
 1. In HASS -> Integrations, Create a new **Input select (helper)**.  
    **Name**: Lake  
    **Icon**: mdi:format-list-bulleted  
-   **Options**: Your lake names, **CaSe SeNsitive**, taken from [here](https://www.lakelevels.info). If a lake's name is not unique, you must format it like below. 
-   **Example**: Cherokee (TN)
+   **Options**: Your lake names, taken from [here](https://www.lakelevels.info). State is not required unless a lake's name is not unique.  
+   **Example**: Chickamauga  
+   **Example**: Cherokee (TX)  
 1. Download lakelevel.py and copy it to your HASSconfig/pyscript folder.
 2. Reload Pyscript. The four sensors should now have the new values.
 3. Add a new card to your dash using the YAML from [card_config.yaml](https://github.com/scottocs11/hass/blob/main/lakelevel/card_config.yaml)
