@@ -1,4 +1,4 @@
-alias: Notify daily of Chickamauga Lake Level
+alias: Daily Notification of Current Lake Level
 description: ""
 triggers:
   - trigger: time
@@ -13,17 +13,19 @@ triggers:
       - sat
 conditions:
   - condition: numeric_state
-    entity_id: sensor.chickamauga_level_difference
+    entity_id: sensor.lake_level_difference
     below: -0.5
     above: -4
   - condition: template
     value_template: "{{ now().month in [4,5,6] }}"
+    alias: If month is April,May,June
 actions:
   - action: notify.notify
     metadata: {}
     data:
       message: >-
-        Chickamauga Lake is at {{states.sensor.chickamauga_lake_level.state}}ft,
-        which is {{states.sensor.chickamauga_level_difference.state}}ft below
-        full pool.
+        {{states.input_select.lake.state}} is at
+        {{states.sensor.lake_current_level.state}}ft, which is
+        {{states.sensor.lake_level_difference.state}}ft below full pool
+        ({{states.sensor.lake_full_pool.state}}).
 mode: single
