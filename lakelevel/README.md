@@ -7,7 +7,7 @@ Prerequisites:
 2. Using HACS, download [Pyscript](https://github.com/custom-components/pyscript). Restart HASS.
 
 Instructions:
-1. Download lakelevel.py and copy it to your <HASSconfig>/pyscript folder.
+1. Download lakelevel.py and copy it to your HASSconfig/pyscript folder.
 2. Reload Pyscript. The four sensors should now have the new values.
 3. Add a new card to your dash using the YAML from [card_config.yaml](https://github.com/scottocs11/hass/blob/main/lakelevel/card_config.yaml)
 4. Optionally, add a new automation using the YAML from [notifications.yaml](https://github.com/scottocs11/hass/blob/main/lakelevel/notifications.yaml).
