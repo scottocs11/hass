@@ -17,16 +17,15 @@ Instructions:
 1. In HASS -> Integrations, Create a new **Input select (helper)**.  
    **Name**: Lake  
    **Icon**: mdi:format-list-bulleted  
-   **Options**: Your lake names, taken from [here](https://www.lakelevels.info). If a lake's name is not unique, you must format it like below, with **TWO** spaces between the name and state. (See Known bug #1)  
-   **Example**: Cherokee  (tn)
+   **Options**: Your lake names, taken from [here](https://www.lakelevels.info). If a lake's name is not unique, you must format it like below. 
+   **Example**: Cherokee (tn)
 1. Download lakelevel.py and copy it to your HASSconfig/pyscript folder.
 2. Reload Pyscript. The four sensors should now have the new values.
 3. Add a new card to your dash using the YAML from [card_config.yaml](https://github.com/scottocs11/hass/blob/main/lakelevel/card_config.yaml)
 4. Optionally, add a new automation using the YAML from [notifications.yaml](https://github.com/scottocs11/hass/blob/main/lakelevel/notifications.yaml).
 
 Known Bugs:
-1. HASS' [Input Select](https://www.home-assistant.io/integrations/input_select/) removes one of the two required spaces between the lake name and the state, so until I figure that out, it can't perform exact name searches, only 'contains'. This means only the first of any unique lake name can be used.
-2. Unique ID's are not set for sensors, so the sensors can't be customized in the UI unless you add the sensors to configuration yaml. You may as well customize them within the script.
+1. Unique ID's are not set for sensors, so the sensors can't be customized in the UI unless you add the sensors to configuration yaml. You may as well customize them within the script.
 
 To Do:
 1. Fix bugs.
