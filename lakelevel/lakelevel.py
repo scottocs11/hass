@@ -5,6 +5,7 @@ url = "https://www.lakelevels.info/"
 
 def initial_lake_info():
     html = await hass.async_add_executor_job(requests.get, url)
+    #When testing in python: html = requests.get(url)
     df_list = pd.read_html(StringIO(html.text))
     df = df_list[4]
     df['Lake Name'] = df['Lake Name'].str.replace('  ', ' ')
