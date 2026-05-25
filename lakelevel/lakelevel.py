@@ -9,6 +9,8 @@ def initial_lake_info():
     df_list = pd.read_html(StringIO(html.text))
     df = df_list[4]
     df['Lake Name'] = df['Lake Name'].str.replace('  ', ' ')
+    df['Lake Name'] = df['Lake Name'].str.replace('(', '')
+    df['Lake Name'] = df['Lake Name'].str.replace(')', '')
     return df
 
 df = initial_lake_info() #Initial Request
@@ -19,7 +21,9 @@ def update_lake_info():
 
 def quick_load_lake_info(df):
     lakename = state.get("input_select.lake") #Pyscript only
-    #When testing in python: lakename = "Chickamauga  (TN)"
+    #When testing in python: lakename = "Cherokee (TX)"
+    lakename = lakename.replace('(', '')
+    lakename = lakename.replace(')', '')
     fdf = df[df['Lake Name'].str.contains(lakename)].reset_index()
     levelCurrent = fdf.at[0,'Current Level']
     levelCurrent = levelCurrent.item()
