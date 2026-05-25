@@ -1,4 +1,4 @@
-This script pulls lake level info from [lakelevels.info](https://www.lakelevels.info) and updates HASS sensors with the data.
+This script pulls US lake level info from [lakelevels.info](https://www.lakelevels.info) and updates HASS sensors with the data.
 
 <img src="https://github.com/scottocs11/hass/blob/main/lakelevel/images/lakelevelcard.png" width="400"/>
 
