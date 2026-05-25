@@ -30,3 +30,4 @@ Known Bugs:
 
 To Do:
 1. Fix bugs.
+2. Add ability to import via HACS custom repo.
