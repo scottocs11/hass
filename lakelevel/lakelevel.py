@@ -4,14 +4,11 @@ from io import StringIO
 url = "https://www.lakelevels.info/"
 
 def initial_lake_info():
-    html = await hass.async_add_executor_job(requests.get, url)
+    html = await hass.async_add_executor_job(requests.get, url) #Pyscript Only
     #When testing in python: html = requests.get(url)
     df_list = pd.read_html(StringIO(html.text))
     df = df_list[4]
-    df['Lake Name'] = df['Lake Name'].str.lower()
-    df['Lake Name'] = df['Lake Name'].str.replace('  ', ' ')
-    df['Lake Name'] = df['Lake Name'].str.replace('(', '')
-    df['Lake Name'] = df['Lake Name'].str.replace(')', '')
+    df['Lake Name'] = df['Lake Name'].str.lower().str.replace('  ', ' ').str.replace('(', '').str.replace(')', '')
     return df
 
 df = initial_lake_info() #Initial Request
@@ -23,16 +20,11 @@ def update_lake_info():
 def quick_load_lake_info(df):
     lakename = state.get("input_select.lake") #Pyscript only
     #When testing in python: lakename = "Cherokee (TX)"
-    lakename = lakename.lower()
-    lakename = lakename.replace('(', '')
-    lakename = lakename.replace(')', '')
+    lakename = lakename.lower().replace('(', '').replace(')', '')
     fdf = df[df['Lake Name'].str.contains(lakename)].reset_index()
-    levelCurrent = fdf.at[0,'Current Level']
-    levelCurrent = levelCurrent.item()
-    levelFull = fdf.at[0,'Full Pool']
-    levelFull = levelFull.item()
-    levelDifference = fdf.at[0,'+/- Full Pool']
-    levelDifference = levelDifference.item()
+    levelCurrent = fdf.at[0,'Current Level'].item()
+    levelFull = fdf.at[0,'Full Pool'].item()
+    levelDifference = fdf.at[0,'+/- Full Pool'].item()
     levelDate = fdf.at[0,'Reading Date - Time']
 
     state.set('sensor.lake_current_level', levelCurrent, {
