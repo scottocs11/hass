@@ -1,6 +1,6 @@
 This script pulls lake level info from [lakelevels.info](https://www.lakelevels.info/updates) and updates HASS sensors with the data.
 
-![Screenshot of the completed product in HASS](https://github.com/scottocs11/hass/blob/main/lakelevel/images/lakelevelcard.png | width=400)
+<img src="https://github.com/scottocs11/hass/blob/main/lakelevel/images/lakelevelcard.png" width="100"/>
 
 Prerequisites:
 1. Download and install [HACS](https://github.com/hacs). Restart HASS.
