@@ -1,5 +1,7 @@
 This script updates four HASS sensors to show the Chickamauga Lake level.
 
+![Screenshot of the completed product in HASS](https://github.com/scottocs11/hass/blob/main/lakelevel/images/chiclake.png)
+
 Instructions:
 1. Create four Helper Template Sensors via Settings -> Helpers -> Create Helper -> Template -> Sensor.
 
