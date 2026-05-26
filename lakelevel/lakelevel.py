@@ -11,7 +11,7 @@ def initial_lake_info():
     df['Lake Name'] = df['Lake Name'].str.lower().str.replace('  ', ' ').str.replace('(', '').str.replace(')', '')
     return df
 
-df = initial_lake_info() #Initial Request
+#df = initial_lake_info() #Initial Request
 
 @service
 def update_lake_info():
@@ -24,37 +24,65 @@ def quick_load_lake_info(df):
     lakename = state.get("input_select.lake") #Pyscript only
     #When testing in python: lakename = "Cherokee (TX)"
     lakename = lakename.lower().replace('(', '').replace(')', '')
-    fdf = df[df['Lake Name'].str.contains(lakename)].reset_index()
-    levelCurrent = fdf.at[0,'Current Level'].item()
-    levelFull = fdf.at[0,'Full Pool'].item()
-    levelDifference = fdf.at[0,'+/- Full Pool'].item()
-    levelDate = fdf.at[0,'Reading Date - Time']
+    exists = df['Lake Name'].str.contains(lakename).any().item()
+    if exists  == True:
+        fdf = df[df['Lake Name'].str.contains(lakename)].reset_index()
+        levelCurrent = fdf.at[0,'Current Level'].item()
+        levelFull = fdf.at[0,'Full Pool'].item()
+        levelDifference = fdf.at[0,'+/- Full Pool'].item()
+        levelDate = fdf.at[0,'Reading Date - Time']
 
-    state.set('sensor.lake_current_level', levelCurrent, {
-    'friendly_name': 'Current Level',
-    'unit_of_measurement': 'ft',
-    'state class': 'measurement',
-    'icon': 'mdi:waves'
-    })
+        state.set('sensor.lake_current_level', levelCurrent, {
+        'friendly_name': 'Current Level',
+        'unit_of_measurement': 'ft',
+        'state class': 'measurement',
+        'icon': 'mdi:waves'
+        })
 
-    state.set('sensor.lake_full_pool', levelFull, {
-    'friendly_name': 'Full Pool',
-    'unit_of_measurement': 'ft',
-    'state class': 'measurement',
-    'icon': 'mdi:moon-full'
-    })
+        state.set('sensor.lake_full_pool', levelFull, {
+        'friendly_name': 'Full Pool',
+        'unit_of_measurement': 'ft',
+        'state class': 'measurement',
+        'icon': 'mdi:moon-full'
+        })
 
-    state.set('sensor.lake_level_difference', levelDifference, {
-    'friendly_name': 'Difference',
-    'unit_of_measurement': 'ft',
-    'state class': 'measurement',
-    'icon': 'mdi:waves-arrow-up'
-    })
+        state.set('sensor.lake_level_difference', levelDifference, {
+        'friendly_name': 'Difference',
+        'unit_of_measurement': 'ft',
+        'state class': 'measurement',
+        'icon': 'mdi:waves-arrow-up'
+        })
 
-    state.set('sensor.lake_last_update', levelDate, {
-    'friendly_name': 'Last Update',
-    'icon': 'mdi:update'
-    })
+        state.set('sensor.lake_last_update', levelDate, {
+        'friendly_name': 'Last Update',
+        'icon': 'mdi:update'
+        })
+    else:
+        state.set('sensor.lake_current_level', 'Lake Not Found', {
+        'friendly_name': 'Current Level',
+        'unit_of_measurement': 'ft',
+        'state class': 'measurement',
+        'icon': 'mdi:waves'
+        })
+
+        state.set('sensor.lake_full_pool', 'Lake Not Found', {
+        'friendly_name': 'Full Pool',
+        'unit_of_measurement': 'ft',
+        'state class': 'measurement',
+        'icon': 'mdi:moon-full'
+        })
+
+        state.set('sensor.lake_level_difference', 'Lake Not Found', {
+        'friendly_name': 'Difference',
+        'unit_of_measurement': 'ft',
+        'state class': 'measurement',
+        'icon': 'mdi:waves-arrow-up'
+        })
+
+        state.set('sensor.lake_last_update', 'Lake Not Found', {
+        'friendly_name': 'Last Update',
+        'icon': 'mdi:update'
+        })
 
 @time_trigger("once(06:00:00)")
 def update_sensors_time():
