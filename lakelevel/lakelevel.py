@@ -13,7 +13,10 @@ def initial_lake_info():
 
 df = initial_lake_info() #Initial Request
 
+@service
 def update_lake_info():
+    """Update Lake Info using Pyscript"""
+    log.info(f"Reloaded Lake Info")
     df = initial_lake_info()
     quick_load_lake_info(df)
 
@@ -57,7 +60,7 @@ def quick_load_lake_info(df):
 def update_sensors_time():
     update_lake_info()
 
-@time_trigger("once(now)","startup")
+@time_trigger("startup")
 def quick_load_sensors_time():
     quick_load_lake_info(df)
 
