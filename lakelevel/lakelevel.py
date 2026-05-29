@@ -2,22 +2,18 @@ import requests
 import pandas as pd
 from io import StringIO
 url = "https://www.lakelevels.info/"
-
-def initial_lake_info():
-    html = await hass.async_add_executor_job(requests.get, url) #Pyscript Only
-    #When testing in python: html = requests.get(url)
-    df_list = pd.read_html(StringIO(html.text))
-    df = df_list[4]
-    df['Lake Name'] = df['Lake Name'].str.lower().str.replace('  ', ' ').str.replace('(', '').str.replace(')', '')
-    return df
-
-#df = initial_lake_info() #Initial Request
+df = []
 
 @service
 def update_lake_info():
     """Update Lake Info using Pyscript"""
     log.info(f"Reloaded Lake Info")
-    df = initial_lake_info()
+    html = await hass.async_add_executor_job(requests.get, url) #Pyscript Only
+    #When testing in python: html = requests.get(url)
+    df_list = pd.read_html(StringIO(html.text))
+    global df
+    df = df_list[4]
+    df['Lake Name'] = df['Lake Name'].str.lower().str.replace('  ', ' ').str.replace('(', '').str.replace(')', '')
     quick_load_lake_info(df)
 
 def quick_load_lake_info(df):
@@ -84,13 +80,9 @@ def quick_load_lake_info(df):
         'icon': 'mdi:update'
         })
 
-@time_trigger("once(06:00:00)")
+@time_trigger("startup","once(06:00:00)")
 def update_sensors_time():
     update_lake_info()
-
-@time_trigger("startup")
-def quick_load_sensors_time():
-    quick_load_lake_info(df)
 
 @state_trigger("input_select.lake")
 def quick_load_lakechange():
