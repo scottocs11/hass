@@ -22,7 +22,7 @@ Instructions:
    **Example**: Cherokee (TX)  
 1. Download lakelevel.py and copy it to your HASSconfig/pyscript folder.
 2. Reload Pyscript via Settings > Developer Tools > Actions > Reload Pyscript. The four sensors should now have the new values.
-3. Add a new card to your dash using the YAML from [card_config.yaml](https://github.com/scottocs11/pyscript-lakelevel/blob/main/lcard_config.yaml)
+3. Add a new card to your dash using the YAML from [card_config.yaml](https://github.com/scottocs11/pyscript-lakelevel/blob/main/card_config.yaml)
 4. Optionally, add a new automation using the YAML from [notifications.yaml](https://github.com/scottocs11/pyscript-lakelevel/blob/main/notifications.yaml).
 
 Known Bugs:
