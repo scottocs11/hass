@@ -1,0 +1,8 @@
+type: entities
+entities:
+  - entity: input_select.lake
+  - entity: sensor.lake_current_level
+  - entity: sensor.lake_full_pool
+  - entity: sensor.lake_level_difference
+  - entity: sensor.lake_last_update
+title: Lake Level
